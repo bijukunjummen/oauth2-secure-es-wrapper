@@ -1,0 +1,22 @@
+ssoServiceUrl: http://localhost:8080/uaa
+
+server:
+  port: 8081
+
+security:
+  oauth2:
+    client:
+      client-id: resource1
+      client-secret: resource1
+    resource:
+      token-info-uri: ${ssoServiceUrl}/oauth/check_token
+      jwt:
+        key-uri: ${ssoServiceUrl}/token_key
+      user-info-uri: ${ssoServiceUrl}/userinfo
+      id: resource
+
+logging.level:
+  org.springframework.security: DEBUG
+  
+elasticsearch:
+  url: http://localhost:9200
