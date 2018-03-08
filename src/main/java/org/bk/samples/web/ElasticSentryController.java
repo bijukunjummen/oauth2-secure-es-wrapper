@@ -8,6 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +37,11 @@ public class ElasticSentryController {
 
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("#oauth2.hasScope('resource.read')")
-    public ResponseEntity<?> elasticSearchGet(@RequestBody(required = false) String body, HttpServletRequest request) {
+    public ResponseEntity<?> elasticSearchGet(@RequestBody(required = false) String body, HttpServletRequest request, Authentication principal) {
+        OAuth2Authentication oAuth2Authentication = (OAuth2Authentication)principal;
+        OAuth2Request oAuth2Request = oAuth2Authentication.getOAuth2Request();
+        OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails)oAuth2Authentication.getDetails();
+        System.out.println(oAuth2AuthenticationDetails.getTokenValue());
         final String url = new StringBuilder(this.elasticSearchURL)
                 .append(request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)).toString();
         final HttpHeaders headers = new HttpHeaders();
