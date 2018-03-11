@@ -38,10 +38,10 @@ public class ElasticSentryController {
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("#oauth2.hasScope('resource.read')")
     public ResponseEntity<?> elasticSearchGet(@RequestBody(required = false) String body, HttpServletRequest request, Authentication principal) {
-        OAuth2Authentication oAuth2Authentication = (OAuth2Authentication)principal;
-        OAuth2Request oAuth2Request = oAuth2Authentication.getOAuth2Request();
-        OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails)oAuth2Authentication.getDetails();
-        System.out.println(oAuth2AuthenticationDetails.getTokenValue());
+//        OAuth2Authentication oAuth2Authentication = (OAuth2Authentication)principal;
+//        OAuth2Request oAuth2Request = oAuth2Authentication.getOAuth2Request();
+//        OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails)oAuth2Authentication.getDetails();
+//        System.out.println(oAuth2AuthenticationDetails.getTokenValue());
         final String url = new StringBuilder(this.elasticSearchURL)
                 .append(request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)).toString();
         final HttpHeaders headers = new HttpHeaders();
